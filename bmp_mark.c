@@ -49,6 +49,11 @@ int main(int argc, char *argv[])
 
         case 'd':
             fop = fopen(argv[2], "rb");
+            get_watermark(fop, MARK_LEN, temp, 54);
+            if (strncmp(mark, temp, MARK_LEN) != 0) {
+                printf("can't read info from this file, it has not a mark of \"watermark\"\n");
+                exit(0);
+            }
             int len = get_watermark_lenght(fop);
             char *string = (char *) malloc(sizeof(char) * len);
             get_watermark(fop, len, string, 158);
