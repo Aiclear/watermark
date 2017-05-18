@@ -1,9 +1,10 @@
-##A Little Program
+## A Little Program
 
-- what this is?
-- hidden some infomation in a file(but only for bmp file)
+### what this is?
+ hidden some infomation in a file(but only for bmp file)
 
-- How can I use it?
+### How can I use it?
 ```
+    make
     .\bmp_mark.exe -h (You can get detail info about it)
 ```
