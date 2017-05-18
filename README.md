@@ -1,8 +1,8 @@
 ## A Little Program
 
 ### enviroment
-    * os: windows
-    * MinGun: make gcc
+* os: windows
+* MinGun: make gcc
 
 >Also you can do this in linux
 
