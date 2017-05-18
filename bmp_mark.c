@@ -9,6 +9,7 @@ char * get_watermark(FILE *fop, int len, char mark[], int location);
 int get_watermark_lenght(FILE *fop);
 void add_watermark_message(FILE *fip, FILE *fop, int len, char mark[]);
 void add_watermark_flagInfo(FILE *fip, FILE *fop, int len);
+void judge_file_type(FILE *fip);
 void print_usage();
 
 int main(int argc, char *argv[])
@@ -29,6 +30,8 @@ int main(int argc, char *argv[])
                 printf("Can't open %s file\n", argv[2]);
                 exit(1);
             }
+            /* 判断文件是否是bmp文件 */
+            judge_file_type(fip);
             /* 判断文件是否含有水印的标识 */
             char temp[MARK_LEN];
             get_watermark(fip, MARK_LEN, temp, 54);
@@ -95,8 +98,8 @@ void add_watermark_flagInfo(FILE *fip, FILE *fop, int len)
     /*
      * 现在文件指针位置已经正确了，不需要再次指定位置了
      */
-    /* fseek(fip, 54, SEEK_SET); */
-    /* fseek(fop, 54, SEEK_SET); */
+    // fseek(fip, 54, SEEK_SET);
+    // fseek(fop, 54, SEEK_SET);
     for (int i = 0; i < MARK_LEN; i++) { /* 写入水印的标志 */
         for (int j = 0; j < 8; j++) {
             c = fgetc(fip);
@@ -176,6 +179,20 @@ int get_watermark_lenght(FILE *fop)
     }
 
     return length;
+}
+
+/*
+ * 根据bmp文件的前两个字符为BM判断文件的类型
+ */
+void judge_file_type(FILE *fip)
+{
+    char s[3];
+    fgets(s, 3, fip);
+    if (strncmp(s, "BM", 2) != 0) {
+        printf("%s\n", s);
+        printf("The file can't recognition as a bmp type!");
+        exit(1);
+    }
 }
 
 void print_usage()
